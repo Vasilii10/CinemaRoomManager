@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class DimensionsReaderClass {
 
-
     public static RoomDimensions readRoomDimensionsFromConsole() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of rows:" + "\n" + ">");
@@ -15,5 +14,4 @@ public class DimensionsReaderClass {
 
         return new RoomDimensions(row, length);
     }
-
 }

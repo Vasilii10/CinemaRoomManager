@@ -1,8 +1,8 @@
 package cinema;
 
 public class RoomDimensions {
-    private int rowLength;
-    private int seatsInRow;
+    private final int rowLength;
+    private final int seatsInRow;
 
     public RoomDimensions(int rowLength, int seatsInRow) {
         this.rowLength = rowLength;
