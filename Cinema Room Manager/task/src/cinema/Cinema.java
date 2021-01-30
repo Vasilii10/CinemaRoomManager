@@ -12,5 +12,6 @@ public class Cinema {
         );
         cinemaProfitManager.printTotalIncomeToConsole();
 
+
     }
 }
