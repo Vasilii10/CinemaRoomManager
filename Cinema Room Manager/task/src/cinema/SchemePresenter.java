@@ -1,7 +1,11 @@
 package cinema;
 
+import cinema.profit.SeatLocation;
+
 public interface SchemePresenter {
 
-   void presentScheme(int rows, int seats);
+   void presentScheme(RoomDimensions roomDimensions);
+
+   void presentBookedSeatOnTheSheme(RoomDimensions roomDimensions, SeatLocation seatLocation);
 
 }
