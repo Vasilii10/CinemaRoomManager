@@ -1,27 +1,31 @@
-package cinema;
+package cinema.services;
+
+import cinema.RoomDimensions;
+import cinema.SeatLocation;
+import cinema.services.presenter.CinemaSchemePresenter;
+import cinema.services.presenter.ConsoleCinemaSchemePresenter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Сервис иммитирующий кассира
+ * Сервис бронирования
  */
-public class CinemaCashierService {
+public class CinemaBookingService {
 
-    private final CinemaManagerService cinemaManagerService; // у каждого кассира есть свой менеджер
+    private final CinemaManagerService cinemaManagerService;
 
-    public CinemaCashierService(RoomDimensions roomDimensions) {
+    public CinemaBookingService(RoomDimensions roomDimensions) {
         this.cinemaManagerService = new CinemaManagerService(roomDimensions);
     }
 
     public void startWorkWithCinemaBy() throws IOException {
-        printMenuToConsole();
-
-        defineMenuAction(cinemaManagerService);
+        putMenuToConsole();
+        defineMenuActionFor(cinemaManagerService);
     }
 
-    private void printMenuToConsole() {
+    private void putMenuToConsole() {
         System.out.println();
         System.out.println("1. " + "Show the seats");
         System.out.println("2. " + "Buy a ticket");
@@ -29,40 +33,36 @@ public class CinemaCashierService {
         System.out.print(">");
     }
 
-    private void defineMenuAction(CinemaManagerService cinemaManagerService) throws IOException {
+    private void defineMenuActionFor(CinemaManagerService cinemaManagerService) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int menuChoice = Integer.parseInt(reader.readLine());
 
         switch (menuChoice) {
             case 1:
-
                 System.out.println();
 
-                SchemePresenter schemePresenter = new ConsoleCinemaPresenter();
+                CinemaSchemePresenter cinemaSchemePresenter = new ConsoleCinemaSchemePresenter(
+                        cinemaManagerService.getRoomBookingStorage());
 
-                schemePresenter.printSchemeFrom(cinemaManagerService.getRoomSeatsCapacity());
-
+                cinemaSchemePresenter.printScheme();
 
                 System.out.println();
-
                 break;
-            case 2:
 
+            case 2:
                 SeatLocation seatLocation = SeatLocation.getSeatLocationFromConsole();
 
                 System.out.println();
                 cinemaManagerService.printTicketPriceBy(seatLocation);
-
-                cinemaManagerService.bookSeat(seatLocation);
-
+                cinemaManagerService.bookSeatBy(seatLocation);
                 break;
+
             case 0:
                 return;
-
         }
-        printMenuToConsole();
-        defineMenuAction(cinemaManagerService);
+        putMenuToConsole();
+        defineMenuActionFor(cinemaManagerService);
 
     }
 

@@ -3,8 +3,8 @@ package cinema;
 import java.util.Scanner;
 
 public class SeatLocation {
-    int row;
-    int seat;
+    private final int row;
+    private final int seat;
 
     public SeatLocation(int row, int seat) {
         this.row = row;
