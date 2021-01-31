@@ -1,24 +1,20 @@
 package cinema;
 
 
-/**
- * Класс для обеспечения хранения представления зала с забронированными местами в виде чар двумерного массива
- */
 public class RoomBookingStorage {
-
-    private final char[][] roomBookingStorage; // тип память для хранения кто что забронил
+    private final char[][] roomBookingStorage;
     private final int row;
     private final int seats;
 
     public RoomBookingStorage(RoomDimensions roomDimensions) {
         this.row = roomDimensions.getRowLength();
-        this.seats = roomDimensions.getSeatsInRow();
+        this.seats = roomDimensions.getNumberOfSeatsInRow();
         this.roomBookingStorage = new char[row][seats];
     }
 
     public void initBookingStorage(RoomBookingStorage roomBookingStorage, RoomDimensions roomDimensions) {
         for (int i = 0; i < roomDimensions.getRowLength(); i++) {
-            for (int j = 0; j < roomDimensions.getSeatsInRow(); j++) {
+            for (int j = 0; j < roomDimensions.getNumberOfSeatsInRow(); j++) {
                 roomBookingStorage.roomBookingStorage[i][j] = 'S';
             }
         }

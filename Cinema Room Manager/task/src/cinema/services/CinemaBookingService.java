@@ -34,11 +34,7 @@ public class CinemaBookingService {
     }
 
     private void defineMenuActionFor(CinemaManagerService cinemaManagerService) throws IOException {
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int menuChoice = Integer.parseInt(reader.readLine());
-
-        switch (menuChoice) {
+        switch (getMenuChoice()) {
             case 1:
                 System.out.println();
 
@@ -46,7 +42,6 @@ public class CinemaBookingService {
                         cinemaManagerService.getRoomBookingStorage());
 
                 cinemaSchemePresenter.printScheme();
-
                 System.out.println();
                 break;
 
@@ -66,5 +61,9 @@ public class CinemaBookingService {
 
     }
 
+    private int getMenuChoice() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        return Integer.parseInt(reader.readLine());
+    }
 
 }

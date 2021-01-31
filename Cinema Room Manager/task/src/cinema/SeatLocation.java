@@ -11,14 +11,6 @@ public class SeatLocation {
         this.seat = seat;
     }
 
-    public int getRow() {
-        return row;
-    }
-
-    public int getSeat() {
-        return seat;
-    }
-
     public static SeatLocation getSeatLocationFromConsole() {
         SeatLocation seatLocation = null;
         int row, seat;
@@ -31,5 +23,13 @@ public class SeatLocation {
 
         seatLocation = new SeatLocation(row, seat);
         return seatLocation;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getSeat() {
+        return seat;
     }
 }

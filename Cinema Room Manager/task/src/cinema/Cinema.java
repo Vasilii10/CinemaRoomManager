@@ -10,9 +10,11 @@ public class Cinema {
     public static void main(String[] args) {
 
         try {
-            RoomDimensions roomDimensions = DimensionsReaderService.readRoomDimensionsFromConsole();
 
-            new CinemaBookingService(roomDimensions).startWorkWithCinemaBy();
+            new CinemaBookingService(
+                    DimensionsReaderService.readRoomDimensionsFromConsole()
+            ).startWorkWithCinemaBy();
+
         } catch (IOException e) {
             System.err.println("Application error!");
         }

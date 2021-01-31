@@ -6,7 +6,6 @@ public class ConsoleCinemaSchemePresenter implements CinemaSchemePresenter {
 
     private final RoomBookingStorage roomBookingStorage;
 
-
     public ConsoleCinemaSchemePresenter(RoomBookingStorage roomBookingStorage) {
         this.roomBookingStorage = roomBookingStorage;
     }

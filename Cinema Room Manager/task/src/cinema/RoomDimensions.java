@@ -13,7 +13,7 @@ public class RoomDimensions {
         return rowLength;
     }
 
-    public int getSeatsInRow() {
+    public int getNumberOfSeatsInRow() {
         return seatsInRow;
     }
 }

@@ -23,17 +23,17 @@ public class CinemaManagerService {
     }
 
     private boolean cinemaRoomHasOnePrice() {
-        return (roomDimensions.getRowLength() * roomDimensions.getSeatsInRow()) <= SMALL_ROOM_LIMIT;
+        return (roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow()) <= SMALL_ROOM_LIMIT;
     }
 
-    private int countTotalIncome() {
-        int cinemaCapacity = roomDimensions.getRowLength() * roomDimensions.getSeatsInRow();
+    private int calculateTotalIncomeFromRoom() {
+        int cinemaCapacity = roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow();
 
         if (cinemaRoomHasOnePrice()) {
             return PRICE_FOR_FIRST_PART_OF_ROOM * cinemaCapacity;
         } else {
             int halfRows = roomDimensions.getRowLength() / 2;
-            int seatsInRow = roomDimensions.getSeatsInRow();
+            int seatsInRow = roomDimensions.getNumberOfSeatsInRow();
 
             int totalCostOfFirstPart;
             int totalCostOfSecondPart;
@@ -48,7 +48,6 @@ public class CinemaManagerService {
 
             return totalCostOfFirstPart + totalCostOfSecondPart;
         }
-
     }
 
     private boolean isASimpleHalf() {
