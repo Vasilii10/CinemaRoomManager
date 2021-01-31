@@ -1,17 +1,21 @@
-package cinema.profit;
+package cinema;
 
-import cinema.RoomDimensions;
-
-public class CinemaManager {
+public class CinemaManagerService {
 
     public static final int PRICE_FOR_FIRST_PART_OF_ROOM = 10;
     public static final int PRICE_FOR_SECOND_PART_OF_ROOM = 8;
     public static final char CURRENCY_SYMBOL = '\u0024';
     public static final int SMALL_ROOM_LIMIT = 60;
     private final RoomDimensions roomDimensions;
+    private final RoomSeatsCapacity roomSeatsCapacity;
 
-    public CinemaManager(RoomDimensions roomDimensions) {
+    public CinemaManagerService(RoomDimensions roomDimensions) {
         this.roomDimensions = roomDimensions;
+
+        this.roomSeatsCapacity = new RoomSeatsCapacity(roomDimensions.getRowLength(), roomDimensions.getSeatsInRow());
+
+        roomSeatsCapacity.initBookingStorage(roomSeatsCapacity, roomDimensions);
+
     }
 
     public void printTotalIncomeToConsole() {
@@ -60,19 +64,30 @@ public class CinemaManager {
             return PRICE_FOR_FIRST_PART_OF_ROOM;
         } else {
 
-                int halfRows = roomDimensions.getRowLength() / 2;
-                if (seatLocation.row <= halfRows){
+            int halfRows = roomDimensions.getRowLength() / 2;
+            if (seatLocation.row <= halfRows) {
 
-                    return PRICE_FOR_FIRST_PART_OF_ROOM;
+                return PRICE_FOR_FIRST_PART_OF_ROOM;
 
-                } else {
-                    return PRICE_FOR_SECOND_PART_OF_ROOM;
-                }
+            } else {
+                return PRICE_FOR_SECOND_PART_OF_ROOM;
+            }
 
 
         }
 
     }
 
+    public void printSchemeWithBookingsToConsole() {
+        this.roomSeatsCapacity.printToConsole();
+    }
 
+
+    public RoomDimensions getRoomDIMENTIONS() {
+        return this.roomDimensions;
+    }
+
+    public void bookSeat(SeatLocation seatLocation) {
+        roomSeatsCapacity.addBookingBy(seatLocation);
+    }
 }
