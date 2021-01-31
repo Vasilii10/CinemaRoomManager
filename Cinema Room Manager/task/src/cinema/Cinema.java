@@ -1,17 +1,17 @@
 package cinema;
 
 
-import cinema.profit.CinemaProfitManager;
+import java.io.IOException;
 
 public class Cinema {
-
     public static void main(String[] args) {
 
-        CinemaProfitManager cinemaProfitManager = new CinemaProfitManager(
-                DimensionsReaderClass.readRoomDimensionsFromConsole()
-        );
-        cinemaProfitManager.printTotalIncomeToConsole();
+        try {
+            RoomDimensions roomDimensions = DimensionsReader.readRoomDimensionsFromConsole();
 
-
+            new CinemaCashierService(roomDimensions).startWorkWithCinemaBy();
+        } catch (IOException e) {
+            System.err.println("Application error!");
+        }
     }
 }

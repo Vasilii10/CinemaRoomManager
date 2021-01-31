@@ -2,6 +2,10 @@ package cinema;
 
 public interface SchemePresenter {
 
-   void presentScheme(int rows, int seats);
+   void printSchemeFrom(RoomSeatsCapacity roomSeatsCapacity);
 
+   void presentBookedSeatOnTheScheme(RoomDimensions roomDimensions, SeatLocation seatLocation);
+
+
+// TODO: 31/01/2021 отображение забронированных тоже здесь  
 }
