@@ -2,7 +2,7 @@ package cinema;
 
 public interface SchemePresenter {
 
-   void presentScheme(RoomDimensions roomDimensions);
+   void printSchemeFrom(RoomSeatsCapacity roomSeatsCapacity);
 
    void presentBookedSeatOnTheScheme(RoomDimensions roomDimensions, SeatLocation seatLocation);
 

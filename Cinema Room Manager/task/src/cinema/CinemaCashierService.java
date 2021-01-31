@@ -4,14 +4,24 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Сервис иммитирующий кассира
+ */
 public class CinemaCashierService {
 
-    CinemaManagerService cinemaManagerService;
+    private final CinemaManagerService cinemaManagerService; // у каждого кассира есть свой менеджер
 
-    public CinemaCashierService() {
+    public CinemaCashierService(RoomDimensions roomDimensions) {
+        this.cinemaManagerService = new CinemaManagerService(roomDimensions);
     }
 
-    private static void showMenuToConsole() {
+    public void startWorkWithCinemaBy() throws IOException {
+        printMenuToConsole();
+
+        defineMenuAction(cinemaManagerService);
+    }
+
+    private void printMenuToConsole() {
         System.out.println();
         System.out.println("1. " + "Show the seats");
         System.out.println("2. " + "Buy a ticket");
@@ -19,31 +29,7 @@ public class CinemaCashierService {
         System.out.print(">");
     }
 
-    public void startBuyTicket() throws IOException {
-        RoomDimensions roomDimensions = DimensionsReaderClass.readRoomDimensionsFromConsole();
-
-        this.cinemaManagerService = new CinemaManagerService(roomDimensions);
-
-
-        showMenuToConsole();
-
-        defineActionAfterMenu(cinemaManagerService);
-
-//        ConsoleCinemaPresenter consoleCinemaPresenter = new ConsoleCinemaPresenter();
-//        System.out.println();
-//        consoleCinemaPresenter.presentScheme(roomDimensions);
-//        System.out.println();
-//
-//        SeatLocation seatLocation = SeatLocation.getSeatLocationFromConsole();
-//
-//        System.out.println();
-//        cinemaManagerService.printTicketPriceBy(seatLocation);
-//
-//        System.out.println();
-//        consoleCinemaPresenter.presentBookedSeatOnTheScheme(roomDimensions, seatLocation);
-    }
-
-    private void defineActionAfterMenu(CinemaManagerService cinemaManagerService) throws IOException {
+    private void defineMenuAction(CinemaManagerService cinemaManagerService) throws IOException {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int menuChoice = Integer.parseInt(reader.readLine());
@@ -51,13 +37,13 @@ public class CinemaCashierService {
         switch (menuChoice) {
             case 1:
 
-                // отобржание из памяти
-
-                ConsoleCinemaPresenter consoleCinemaPresenter = new ConsoleCinemaPresenter();
                 System.out.println();
-//cinemaManagerService.
-                cinemaManagerService.printSchemeWithBookingsToConsole();
-                //consoleCinemaPresenter.presentScheme(cinemaManagerService.getRoomDIMENTIONS()); // TODO: 31/01/2021 если номер ряда больше 10 то сделать плюс еще один пробел
+
+                SchemePresenter schemePresenter = new ConsoleCinemaPresenter();
+
+                schemePresenter.printSchemeFrom(cinemaManagerService.getRoomSeatsCapacity());
+
+
                 System.out.println();
 
                 break;
@@ -70,18 +56,13 @@ public class CinemaCashierService {
 
                 cinemaManagerService.bookSeat(seatLocation);
 
-//                ConsoleCinemaPresenter consoleCinemaPresenter2 = new ConsoleCinemaPresenter(); // FIXME: 31/01/2021 у каждого свой презентер?
-//                consoleCinemaPresenter2.presentBookedSeatOnTheScheme(cinemaManagerService.getRoomDIMENTIONS(), seatLocation);
-
-
                 break;
             case 0:
                 return;
 
         }
-
-        showMenuToConsole();
-        defineActionAfterMenu(cinemaManagerService);
+        printMenuToConsole();
+        defineMenuAction(cinemaManagerService);
 
     }
 

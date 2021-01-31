@@ -2,7 +2,7 @@ package cinema;
 
 import java.util.Scanner;
 
-public class DimensionsReaderClass {
+public class DimensionsReader {
 
     public static RoomDimensions readRoomDimensionsFromConsole() {
         Scanner scanner = new Scanner(System.in);
@@ -14,6 +14,5 @@ public class DimensionsReaderClass {
 
         return new RoomDimensions(row, length);
     }
-
 
 }

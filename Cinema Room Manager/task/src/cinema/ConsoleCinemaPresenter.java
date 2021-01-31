@@ -6,19 +6,46 @@ public class ConsoleCinemaPresenter implements SchemePresenter {
 
     // FIXME: 31/01/2021 проблема в некорректном отображении при бронировании последнего места в ряду
 
+    private RoomSeatsCapacity roomSeatsCapacity;
+
     @Override
-    public void presentScheme(RoomDimensions roomDimensions) {
+    public void printSchemeFrom(RoomSeatsCapacity roomSeatsCapacity) {
 
-        int numberOfRows = roomDimensions.getRowLength();
-        int numberOfSeatsInRow = roomDimensions.getSeatsInRow();
+        this.roomSeatsCapacity = roomSeatsCapacity;
+        printToConsole();
+    }
 
+    public void printToConsole() {
         System.out.println("Cinema:");
-
-        for (int i = 0; i <= numberOfRows; i++) {
+        for (int i = 0; i <= roomSeatsCapacity.getRow(); i++) {
             if (i == 0) {
-                printFirstLineFrom(numberOfSeatsInRow);
+                printFirstLineFrom(roomSeatsCapacity.getSeats());
             } else {
-                fillCinemaSeat(numberOfSeatsInRow, i);
+                fillCinemaSeat(roomSeatsCapacity.getSeats(), i);
+            }
+        }
+    }
+
+    private void printFirstLineFrom(int numberOfSeatsInRow) {
+        for (int j = 1; j <= numberOfSeatsInRow; j++) {
+            if (j == 1) {
+                System.out.print("  " + j + " ");
+            } else if (j == numberOfSeatsInRow) {
+                System.out.println(j + " ");
+            } else {
+                System.out.print(j + " ");
+            }
+        }
+    }
+
+    private void fillCinemaSeat(int numberOfSeatsInRow, int i) {
+        for (int index = 1; index <= numberOfSeatsInRow + 1; index++) {
+            if (index == 1) {
+                System.out.print(i + " ");
+            } else if (index == numberOfSeatsInRow + 1) {
+                System.out.print(roomSeatsCapacity.getCapacity()[i - 1][index - 2] + "\n");
+            } else if (index < numberOfSeatsInRow + 1) {
+                System.out.print(roomSeatsCapacity.getCapacity()[i - 1][index - 2] + " ");
             }
         }
     }
@@ -60,27 +87,4 @@ public class ConsoleCinemaPresenter implements SchemePresenter {
 
     }
 
-    private void printFirstLineFrom(int numberOfSeatsInRow) {
-        for (int j = 1; j <= numberOfSeatsInRow; j++) {
-            if (j == 1) {
-                System.out.print("  " + j + " ");
-            } else if (j == numberOfSeatsInRow) {
-                System.out.println(j + " ");
-            } else {
-                System.out.print(j + " ");
-            }
-        }
-    }
-
-    private void fillCinemaSeat(int numberOfSeatsInRow, int i) {
-        for (int index = 1; index <= numberOfSeatsInRow + 1; index++) {
-            if (index == 1) {
-                System.out.print(i + " ");
-            } else if (index == numberOfSeatsInRow + 1) {
-                System.out.print("S " + "\n");
-            } else if (index < numberOfSeatsInRow + 1) {
-                System.out.print("S ");
-            }
-        }
-    }
 }

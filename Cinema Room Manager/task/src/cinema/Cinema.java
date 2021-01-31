@@ -5,11 +5,13 @@ import java.io.IOException;
 
 public class Cinema {
     public static void main(String[] args) {
-        CinemaCashierService cinemaCashierService = new CinemaCashierService();
+
         try {
-            cinemaCashierService.startBuyTicket();
+            RoomDimensions roomDimensions = DimensionsReader.readRoomDimensionsFromConsole();
+
+            new CinemaCashierService(roomDimensions).startWorkWithCinemaBy();
         } catch (IOException e) {
-            System.err.println("Ошибка приложения!");
+            System.err.println("Application error!");
         }
     }
 }
