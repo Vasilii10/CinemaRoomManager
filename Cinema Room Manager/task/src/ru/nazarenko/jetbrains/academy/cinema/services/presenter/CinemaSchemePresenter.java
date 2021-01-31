@@ -1,4 +1,4 @@
-package cinema.services.presenter;
+package ru.nazarenko.jetbrains.academy.cinema.services.presenter;
 
 public interface CinemaSchemePresenter {
 

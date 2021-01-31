@@ -1,9 +1,9 @@
-package cinema.services;
+package ru.nazarenko.jetbrains.academy.cinema.services;
 
 
-import cinema.RoomBookingStorage;
-import cinema.RoomDimensions;
-import cinema.SeatLocation;
+import ru.nazarenko.jetbrains.academy.cinema.RoomBookingStorage;
+import ru.nazarenko.jetbrains.academy.cinema.RoomDimensions;
+import ru.nazarenko.jetbrains.academy.cinema.SeatLocation;
 
 
 public class CinemaManagerService {

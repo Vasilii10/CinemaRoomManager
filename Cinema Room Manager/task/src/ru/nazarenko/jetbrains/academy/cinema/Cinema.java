@@ -1,8 +1,8 @@
-package cinema;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 
-import cinema.services.CinemaBookingService;
-import cinema.services.DimensionsReaderService;
+import ru.nazarenko.jetbrains.academy.cinema.services.CinemaBookingService;
+import ru.nazarenko.jetbrains.academy.cinema.services.DimensionsReaderService;
 
 import java.io.IOException;
 

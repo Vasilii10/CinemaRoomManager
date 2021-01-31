@@ -1,4 +1,4 @@
-package cinema;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 public class RoomDimensions {
     private final int rowLength;

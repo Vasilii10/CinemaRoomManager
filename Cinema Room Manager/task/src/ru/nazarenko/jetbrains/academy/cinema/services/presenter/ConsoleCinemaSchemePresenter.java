@@ -1,6 +1,6 @@
-package cinema.services.presenter;
+package ru.nazarenko.jetbrains.academy.cinema.services.presenter;
 
-import cinema.RoomBookingStorage;
+import ru.nazarenko.jetbrains.academy.cinema.RoomBookingStorage;
 
 public class ConsoleCinemaSchemePresenter implements CinemaSchemePresenter {
 

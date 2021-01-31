@@ -1,4 +1,4 @@
-package cinema;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 import java.util.Scanner;
 

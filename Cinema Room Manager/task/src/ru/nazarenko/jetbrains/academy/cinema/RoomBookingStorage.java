@@ -1,4 +1,4 @@
-package cinema;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 
 public class RoomBookingStorage {

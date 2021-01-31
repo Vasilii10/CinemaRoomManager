@@ -1,6 +1,6 @@
-package cinema.services;
+package ru.nazarenko.jetbrains.academy.cinema.services;
 
-import cinema.RoomDimensions;
+import ru.nazarenko.jetbrains.academy.cinema.RoomDimensions;
 
 import java.util.Scanner;
 

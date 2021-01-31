@@ -1,9 +1,9 @@
-package cinema.services;
+package ru.nazarenko.jetbrains.academy.cinema.services;
 
-import cinema.RoomDimensions;
-import cinema.SeatLocation;
-import cinema.services.presenter.CinemaSchemePresenter;
-import cinema.services.presenter.ConsoleCinemaSchemePresenter;
+import ru.nazarenko.jetbrains.academy.cinema.RoomDimensions;
+import ru.nazarenko.jetbrains.academy.cinema.SeatLocation;
+import ru.nazarenko.jetbrains.academy.cinema.services.presenter.CinemaSchemePresenter;
+import ru.nazarenko.jetbrains.academy.cinema.services.presenter.ConsoleCinemaSchemePresenter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
