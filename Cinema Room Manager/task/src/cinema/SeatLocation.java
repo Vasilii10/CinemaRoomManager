@@ -3,20 +3,12 @@ package cinema;
 import java.util.Scanner;
 
 public class SeatLocation {
-    int row;
-    int seat;
+    private final int row;
+    private final int seat;
 
     public SeatLocation(int row, int seat) {
         this.row = row;
         this.seat = seat;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getSeat() {
-        return seat;
     }
 
     public static SeatLocation getSeatLocationFromConsole() {
@@ -31,5 +23,13 @@ public class SeatLocation {
 
         seatLocation = new SeatLocation(row, seat);
         return seatLocation;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getSeat() {
+        return seat;
     }
 }

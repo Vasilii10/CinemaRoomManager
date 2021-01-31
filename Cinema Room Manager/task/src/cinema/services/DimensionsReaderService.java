@@ -1,8 +1,10 @@
-package cinema;
+package cinema.services;
+
+import cinema.RoomDimensions;
 
 import java.util.Scanner;
 
-public class DimensionsReader {
+public class DimensionsReaderService {
 
     public static RoomDimensions readRoomDimensionsFromConsole() {
         Scanner scanner = new Scanner(System.in);

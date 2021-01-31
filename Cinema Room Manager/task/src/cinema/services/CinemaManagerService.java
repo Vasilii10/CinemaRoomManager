@@ -1,39 +1,39 @@
-package cinema;
+package cinema.services;
 
 
-/**
- * Иммитирует работу управляющего
- */
+import cinema.RoomBookingStorage;
+import cinema.RoomDimensions;
+import cinema.SeatLocation;
+
+
 public class CinemaManagerService {
 
-    public static final int PRICE_FOR_FIRST_PART_OF_ROOM = 10;
-    public static final int PRICE_FOR_SECOND_PART_OF_ROOM = 8;
-    public static final char CURRENCY_SYMBOL = '\u0024';
-    public static final int SMALL_ROOM_LIMIT = 60;
+    private static final int PRICE_FOR_FIRST_PART_OF_ROOM = 10;
+    private static final int PRICE_FOR_SECOND_PART_OF_ROOM = 8;
+    private static final char CURRENCY_SYMBOL = '\u0024';
+    private static final int SMALL_ROOM_LIMIT = 60;
     private final RoomDimensions roomDimensions;
-    private final RoomSeatsCapacity roomSeatsCapacity;
+    private final RoomBookingStorage roomBookingStorage;
 
     public CinemaManagerService(RoomDimensions roomDimensions) {
         this.roomDimensions = roomDimensions;
+        this.roomBookingStorage = new RoomBookingStorage(roomDimensions);
 
-        this.roomSeatsCapacity = new RoomSeatsCapacity(roomDimensions.getRowLength(), roomDimensions.getSeatsInRow());
-
-        roomSeatsCapacity.initBookingStorage(roomSeatsCapacity, roomDimensions);
-
+        roomBookingStorage.initBookingStorage(roomBookingStorage, roomDimensions);
     }
 
     private boolean cinemaRoomHasOnePrice() {
-        return (roomDimensions.getRowLength() * roomDimensions.getSeatsInRow()) <= SMALL_ROOM_LIMIT;
+        return (roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow()) <= SMALL_ROOM_LIMIT;
     }
 
-    private int countTotalIncome() {
-        int cinemaCapacity = roomDimensions.getRowLength() * roomDimensions.getSeatsInRow();
+    private int calculateTotalIncomeFromRoom() {
+        int cinemaCapacity = roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow();
 
         if (cinemaRoomHasOnePrice()) {
             return PRICE_FOR_FIRST_PART_OF_ROOM * cinemaCapacity;
         } else {
             int halfRows = roomDimensions.getRowLength() / 2;
-            int seatsInRow = roomDimensions.getSeatsInRow();
+            int seatsInRow = roomDimensions.getNumberOfSeatsInRow();
 
             int totalCostOfFirstPart;
             int totalCostOfSecondPart;
@@ -48,7 +48,6 @@ public class CinemaManagerService {
 
             return totalCostOfFirstPart + totalCostOfSecondPart;
         }
-
     }
 
     private boolean isASimpleHalf() {
@@ -66,20 +65,19 @@ public class CinemaManagerService {
             return PRICE_FOR_FIRST_PART_OF_ROOM;
         } else {
             int halfRows = roomDimensions.getRowLength() / 2;
-            if (seatLocation.row <= halfRows) {
+            if (seatLocation.getRow() <= halfRows) {
                 return PRICE_FOR_FIRST_PART_OF_ROOM;
             } else {
                 return PRICE_FOR_SECOND_PART_OF_ROOM;
             }
         }
     }
-    //// TODO: 01/02/2021 он должен только отдавать, а печатеает пусть кто-то другой
 
-    public RoomSeatsCapacity getRoomSeatsCapacity() {
-        return this.roomSeatsCapacity;
+    public RoomBookingStorage getRoomBookingStorage() {
+        return this.roomBookingStorage;
     }
 
-    public void bookSeat(SeatLocation seatLocation) {
-        roomSeatsCapacity.addBookingBy(seatLocation);
+    public void bookSeatBy(SeatLocation seatLocation) {
+        roomBookingStorage.bookSeatBy(seatLocation);
     }
 }
