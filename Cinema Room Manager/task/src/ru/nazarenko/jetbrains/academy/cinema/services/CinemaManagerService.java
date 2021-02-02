@@ -6,6 +6,7 @@ import ru.nazarenko.jetbrains.academy.cinema.*;
 
 public class CinemaManagerService {
 
+    //// TODO: 03/02/2021  а давай поместим это в enum ?
     private static final int PRICE_FOR_FIRST_PART_OF_ROOM = 10; // может тариф сделать
     private static final int PRICE_FOR_SECOND_PART_OF_ROOM = 8; // класс тип
 
@@ -33,6 +34,7 @@ public class CinemaManagerService {
         return (roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow()) <= SMALL_ROOM_LIMIT;
     }
 
+    // эта штука тут не нужна
     public int calculateTotalIncomeFromRoom() {
         int cinemaCapacity = roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow();
 
@@ -64,18 +66,18 @@ public class CinemaManagerService {
 
     //// TODO: 01/02/2021 он должен только отдавать, а печатеает пусть кто-то другой
     public void printTicketPriceBy(SeatLocation seatLocation) {
-        System.out.println("Ticket price: " + CURRENCY_SYMBOL + definePriceBy(seatLocation));
+        System.out.println("Ticket price: " + CURRENCY_SYMBOL + (definePriceBy(seatLocation).getIntValue()) );
     }
 
-    private int definePriceBy(SeatLocation seatLocation) {
+    private TicketPrice definePriceBy(SeatLocation seatLocation) {
         if (cinemaRoomHasOnePrice()) {
-            return PRICE_FOR_FIRST_PART_OF_ROOM;
+            return TicketPrice.FIRST_PART_PRICE;
         } else {
             int halfRows = roomDimensions.getRowLength() / 2;
             if (seatLocation.getRow() <= halfRows) {
-                return PRICE_FOR_FIRST_PART_OF_ROOM;
+                return  TicketPrice.FIRST_PART_PRICE;
             } else {
-                return PRICE_FOR_SECOND_PART_OF_ROOM;
+                return  TicketPrice.SECOND_PART_PRICE;
             }
         }
     }
@@ -88,7 +90,7 @@ public class CinemaManagerService {
         roomBookingStorage.bookSeatBy(seatLocation);
         countOfBookedTickets++;
 
-        return new Booking(definePriceBy(seatLocation) , seatLocation);
+        return new Booking(definePriceBy(seatLocation).getIntValue() , seatLocation);
 
     }
 
