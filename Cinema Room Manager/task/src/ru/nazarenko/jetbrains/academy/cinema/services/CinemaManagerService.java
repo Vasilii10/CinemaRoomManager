@@ -1,19 +1,26 @@
 package ru.nazarenko.jetbrains.academy.cinema.services;
 
 
-import ru.nazarenko.jetbrains.academy.cinema.RoomBookingStorage;
-import ru.nazarenko.jetbrains.academy.cinema.RoomDimensions;
-import ru.nazarenko.jetbrains.academy.cinema.SeatLocation;
+import ru.nazarenko.jetbrains.academy.cinema.*;
 
 
 public class CinemaManagerService {
 
-    private static final int PRICE_FOR_FIRST_PART_OF_ROOM = 10;
-    private static final int PRICE_FOR_SECOND_PART_OF_ROOM = 8;
+    private static final int PRICE_FOR_FIRST_PART_OF_ROOM = 10; // может тариф сделать
+    private static final int PRICE_FOR_SECOND_PART_OF_ROOM = 8; // класс тип
+
+
     private static final char CURRENCY_SYMBOL = '\u0024';
     private static final int SMALL_ROOM_LIMIT = 60;
-    private final RoomDimensions roomDimensions;
-    private final RoomBookingStorage roomBookingStorage;
+    private RoomDimensions roomDimensions;
+    private RoomBookingStorage roomBookingStorage;
+
+    private int countOfBookedTickets = 0;
+
+
+    public RoomDimensions getRoomDimensions() {
+        return roomDimensions;
+    }
 
     public CinemaManagerService(RoomDimensions roomDimensions) {
         this.roomDimensions = roomDimensions;
@@ -26,7 +33,7 @@ public class CinemaManagerService {
         return (roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow()) <= SMALL_ROOM_LIMIT;
     }
 
-    private int calculateTotalIncomeFromRoom() {
+    public int calculateTotalIncomeFromRoom() {
         int cinemaCapacity = roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow();
 
         if (cinemaRoomHasOnePrice()) {
@@ -77,7 +84,15 @@ public class CinemaManagerService {
         return this.roomBookingStorage;
     }
 
-    public void bookSeatBy(SeatLocation seatLocation) {
+    public Booking bookSeatBy(SeatLocation seatLocation) throws SeatIsAlreadyBookedException, IncorrectSeatLocationExceprion {
         roomBookingStorage.bookSeatBy(seatLocation);
+        countOfBookedTickets++;
+
+        return new Booking(definePriceBy(seatLocation) , seatLocation);
+
+    }
+
+    public int getCountOfBookedTickets() {
+        return countOfBookedTickets;
     }
 }

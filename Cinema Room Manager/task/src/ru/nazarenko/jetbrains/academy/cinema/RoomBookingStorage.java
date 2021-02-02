@@ -23,15 +23,23 @@ public class RoomBookingStorage {
     /**
      * @return false if seat occupied
      */
-// TODO: 31/01/2021 можно добавить какое-то исключеие напрмер что заронирвоано уже!
-    // или вывести что-нибудь на экран
-    public boolean bookSeatBy(SeatLocation seatLocation) {
-        if (seatIsNotBooked(seatLocation)) {
-            this.roomBookingStorage[seatLocation.getRow() - 1][seatLocation.getSeat() - 1] = 'B';
-            return true;
+
+
+    // TODO: 02/02/2021 иерархи] исклбчений чтобы пробрасывать одно 
+    public void bookSeatBy(SeatLocation seatLocation) throws SeatIsAlreadyBookedException, IncorrectSeatLocationExceprion {
+
+        if (((seatLocation.getRow() > row) || (seatLocation.getRow() < 1)) || //// FIXME: 02/02/2021 убрать путаницу здесь
+                ((seatLocation.getSeat() > seats) || (seatLocation.getSeat() < 1))) { // checkDemensions
+            throw new IncorrectSeatLocationExceprion();
         } else {
-            return false;
+            if (roomBookingStorage[seatLocation.getRow() - 1][seatLocation.getSeat() - 1] != 'B') {
+                this.roomBookingStorage[seatLocation.getRow() - 1][seatLocation.getSeat() - 1] = 'B';
+            } else {
+                throw new SeatIsAlreadyBookedException();
+            }
         }
+
+
     }
 
     private boolean seatIsNotBooked(SeatLocation seatLocation) {
