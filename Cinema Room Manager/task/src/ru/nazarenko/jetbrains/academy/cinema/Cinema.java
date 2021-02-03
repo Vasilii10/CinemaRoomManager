@@ -9,10 +9,12 @@ import java.io.IOException;
 public class Cinema {
     public static void main(String[] args) {
 
+        Configuration configuration = new Configuration('\u0024',60);
+
         try {
 
             new CinemaBookingService(
-                    DimensionsReaderService.readRoomDimensionsFromConsole()
+                    DimensionsReaderService.readRoomDimensionsFromConsole(), configuration
             ).startWorkWithCinemaBy();
 
         } catch (IOException e) {

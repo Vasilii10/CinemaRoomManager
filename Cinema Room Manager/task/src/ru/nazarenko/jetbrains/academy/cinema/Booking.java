@@ -1,14 +1,13 @@
 package ru.nazarenko.jetbrains.academy.cinema;
 
-public class Booking { // бронирование
-    private int price;
-    private SeatLocation seatLocation;
-    private int numberOfRoom;
-
+public class Booking {
+    private final int price;
+    private final SeatLocation seatLocation;
+//    private int numberOfRoom; // на будущее
 
     public Booking(int price, SeatLocation seatLocation) {
-        this.price=price;
-        this.seatLocation =  seatLocation;
+        this.price = price;
+        this.seatLocation = seatLocation;
     }
 
     public int getPrice() {

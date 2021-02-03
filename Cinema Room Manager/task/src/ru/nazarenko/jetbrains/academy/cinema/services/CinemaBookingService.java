@@ -15,11 +15,12 @@ import java.util.ArrayList;
 public class CinemaBookingService {
 
     private final CinemaManagerService cinemaManagerService;
+    ArrayList<Booking> bookings = new ArrayList<>();
 
-    ArrayList<Booking> bookings  = new ArrayList<>();
 
-    public CinemaBookingService(RoomDimensions roomDimensions) {
-        this.cinemaManagerService = new CinemaManagerService(roomDimensions);
+    public CinemaBookingService(RoomDimensions roomDimensions, Configuration configuration) {
+        this.cinemaManagerService = new CinemaManagerService(roomDimensions, configuration);
+
     }
 
     public void startWorkWithCinemaBy() throws IOException {
@@ -39,7 +40,7 @@ public class CinemaBookingService {
     private void defineMenuActionFor(CinemaManagerService cinemaManagerService) throws IOException {
 
         Booking booking = null;
-        
+
         switch (getMenuChoice()) {
             case 1:
                 System.out.println();
@@ -52,41 +53,31 @@ public class CinemaBookingService {
                 break;
 
             case 2:
-
-
-                while (true){
+                while (true) {
                     SeatLocation seatLocation = SeatLocation.getSeatLocationFromConsole();
 
                     System.out.println();
                     try {
-                        booking =  cinemaManagerService.bookSeatBy(seatLocation);
+                        booking = cinemaManagerService.bookSeatBy(seatLocation);
                         bookings.add(booking); // и добавим
                         cinemaManagerService.printTicketPriceBy(seatLocation); // // TODO: 02/02/2021 переделать на метод класса Booking
                         break;
                     } catch (SeatIsAlreadyBookedException e) {
                         System.out.println("That ticket has already been purchased!");
-
                     } catch (IncorrectSeatLocationExceprion incorrectSeatLocationExceprion) {
                         System.out.println("Wrong input!");
-
                     }
                 }
-
-
 
                 break;
 
             case 3:
+                StatisticsService statisticsService = new StatisticsService(cinemaManagerService);
 
-                StatisticsServicw statisticsServicw = new StatisticsServicw(cinemaManagerService);
-
-               // System.out.println("Total income: " + statisticsServicw.calculateTotalIncome());
-                System.out.println("Number of purchased tickets: " + statisticsServicw.numberOfPurshcasedTickets()); // works
-                System.out.println("Percentage: " + String.format("%.2f", statisticsServicw.percentage())  + "%"); //works
-
-                System.out.println("Current income: " + "$" + statisticsServicw.currentIncome(bookings));
-
-                System.out.println("Total income: " + "$" + statisticsServicw.tptalIncome());
+                System.out.println("Number of purchased tickets: " + statisticsService.numberOfPurchasedTickets());
+                System.out.println("Percentage: " + String.format("%.2f", statisticsService.FullnessPercentage()) + "%");
+                System.out.println("Current income: " + "$" + statisticsService.calculateCurrentIncomeBy(bookings));
+                System.out.println("Total income: " + "$" + statisticsService.countTotalIncomeIfRoomFull());
 
                 break;
 

@@ -39,7 +39,6 @@ public class RoomBookingStorage {
             }
         }
 
-
     }
 
     private boolean seatIsNotBooked(SeatLocation seatLocation) {
