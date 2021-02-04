@@ -1,17 +1,16 @@
-package cinema;
-
-
-import cinema.services.CinemaBookingService;
-import cinema.services.DimensionsReaderService;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 import java.io.IOException;
 
 public class Cinema {
     public static void main(String[] args) {
 
+        Configuration configuration = new Configuration('\u0024',60);
+
         try {
 
             new CinemaBookingService(
+                    configuration,
                     DimensionsReaderService.readRoomDimensionsFromConsole()
             ).startWorkWithCinemaBy();
 

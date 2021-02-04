@@ -1,4 +1,4 @@
-package cinema;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 public class RoomDimensions {
     private final int rowLength;
@@ -15,5 +15,9 @@ public class RoomDimensions {
 
     public int getNumberOfSeatsInRow() {
         return seatsInRow;
+    }
+
+    public int getTotalNumberOfSeats() {
+        return rowLength * seatsInRow;
     }
 }
