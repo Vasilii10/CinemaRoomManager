@@ -5,13 +5,13 @@ public enum TicketPrice {
     FIRST_PART_PRICE(10),
     SECOND_PART_PRICE(8);
 
-    private int value;
+    private final int price;
 
     TicketPrice(int price) {
-        this.value=price;
+        this.price = price;
     }
 
-   public int getIntValue(){
-        return value;
-   }
+    public int getIntValue() {
+        return price;
+    }
 }

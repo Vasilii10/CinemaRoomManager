@@ -1,16 +1,10 @@
-package ru.nazarenko.jetbrains.academy.cinema.services;
+package ru.nazarenko.jetbrains.academy.cinema;
 
-import ru.nazarenko.jetbrains.academy.cinema.Booking;
-import ru.nazarenko.jetbrains.academy.cinema.RoomDimensions;
-import ru.nazarenko.jetbrains.academy.cinema.TicketPrice;
 
 import java.util.ArrayList;
 
 public class StatisticsService {
-    //    private int numberOfPurchasedTickets;
-//    private double percentage;
-//    private double currentIncome;
-//    private double totalIncome;
+
     CinemaManagerService cinemaManagerService;
 
     public StatisticsService(CinemaManagerService cinemaManagerService) {
@@ -27,11 +21,12 @@ public class StatisticsService {
     }
 
     public int numberOfPurchasedTickets() {
-        return cinemaManagerService.getCountOfBookedTickets();
+        return cinemaManagerService.getNumberOfBookedTickets();
     }
 
     public double FullnessPercentage() {
-        return (double) cinemaManagerService.getCountOfBookedTickets() * 100 / (double) cinemaManagerService.getRoomDimensions().getTotalNumberOfSeats();
+        return (double) cinemaManagerService.getNumberOfBookedTickets() * 100 /
+                (double) cinemaManagerService.getRoomDimensions().getTotalNumberOfSeats();
     }
 
     public int countTotalIncomeIfRoomFull() {
@@ -61,7 +56,7 @@ public class StatisticsService {
     }
 
     private boolean cinemaRoomHasOnePrice(RoomDimensions roomDimensions) {
-        return (roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow()) <= cinemaManagerService.getConfiguration().getRoomLimit();
+        return (roomDimensions.getRowLength() * roomDimensions.getNumberOfSeatsInRow()) <= cinemaManagerService.getRoomLimit();
     }
 
 }

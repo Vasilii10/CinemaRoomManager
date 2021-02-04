@@ -1,15 +1,8 @@
 package ru.nazarenko.jetbrains.academy.cinema;
 
-public class SeatIsAlreadyBookedException extends Exception {
+public class SeatIsAlreadyBookedException extends BookingException {
 
     public SeatIsAlreadyBookedException() {
     }
 
-    public SeatIsAlreadyBookedException(String message) {
-        super(message);
-    }
-
-    public SeatIsAlreadyBookedException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

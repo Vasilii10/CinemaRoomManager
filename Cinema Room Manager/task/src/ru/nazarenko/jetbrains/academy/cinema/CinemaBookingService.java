@@ -1,8 +1,4 @@
-package ru.nazarenko.jetbrains.academy.cinema.services;
-
-import ru.nazarenko.jetbrains.academy.cinema.*;
-import ru.nazarenko.jetbrains.academy.cinema.services.presenter.CinemaSchemePresenter;
-import ru.nazarenko.jetbrains.academy.cinema.services.presenter.ConsoleCinemaSchemePresenter;
+package ru.nazarenko.jetbrains.academy.cinema;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,12 +11,12 @@ import java.util.ArrayList;
 public class CinemaBookingService {
 
     private final CinemaManagerService cinemaManagerService;
-    ArrayList<Booking> bookings = new ArrayList<>();
+    private final ArrayList<Booking> bookingsList = new ArrayList<>();
+    private final char currencySymbol;
 
-
-    public CinemaBookingService(RoomDimensions roomDimensions, Configuration configuration) {
+    public CinemaBookingService(Configuration configuration, RoomDimensions roomDimensions) {
         this.cinemaManagerService = new CinemaManagerService(roomDimensions, configuration);
-
+        this.currencySymbol = configuration.getCurrencySymbol();
     }
 
     public void startWorkWithCinemaBy() throws IOException {
@@ -38,7 +34,6 @@ public class CinemaBookingService {
     }
 
     private void defineMenuActionFor(CinemaManagerService cinemaManagerService) throws IOException {
-
         Booking booking = null;
 
         switch (getMenuChoice()) {
@@ -58,17 +53,21 @@ public class CinemaBookingService {
 
                     System.out.println();
                     try {
+
                         booking = cinemaManagerService.bookSeatBy(seatLocation);
-                        bookings.add(booking); // и добавим
-                        cinemaManagerService.printTicketPriceBy(seatLocation); // // TODO: 02/02/2021 переделать на метод класса Booking
+                        bookingsList.add(booking);
+
+                        printPriceFor(booking);
+
                         break;
                     } catch (SeatIsAlreadyBookedException e) {
                         System.out.println("That ticket has already been purchased!");
-                    } catch (IncorrectSeatLocationExceprion incorrectSeatLocationExceprion) {
+                    } catch (IncorrectSeatLocationException incorrectSeatLocationException) {
                         System.out.println("Wrong input!");
+                    } catch (BookingException e) {
+
                     }
                 }
-
                 break;
 
             case 3:
@@ -76,7 +75,7 @@ public class CinemaBookingService {
 
                 System.out.println("Number of purchased tickets: " + statisticsService.numberOfPurchasedTickets());
                 System.out.println("Percentage: " + String.format("%.2f", statisticsService.FullnessPercentage()) + "%");
-                System.out.println("Current income: " + "$" + statisticsService.calculateCurrentIncomeBy(bookings));
+                System.out.println("Current income: " + "$" + statisticsService.calculateCurrentIncomeBy(bookingsList));
                 System.out.println("Total income: " + "$" + statisticsService.countTotalIncomeIfRoomFull());
 
                 break;
@@ -84,9 +83,14 @@ public class CinemaBookingService {
             case 0:
                 return;
         }
+
         putMenuToConsole();
         defineMenuActionFor(cinemaManagerService);
 
+    }
+
+    private void printPriceFor(Booking booking) {
+        System.out.println("Ticket price: " + currencySymbol + booking.getPrice());
     }
 
     private int getMenuChoice() throws IOException {
